@@ -16,6 +16,8 @@
 -w WRITE, --write WRITE сохранить результаты парсинга в файл, по умолчанию используюется файл rozetka.csv
 
 Пример запуска скрипта
+
 sudo python3 parser-rozetka.py -ltipI -f file.txt
+
 откроет ссылку из file.txt - https://rozetka.com.ua/skrapbuking-i-kardmejking/c4632201/
 сохратит в файл rozetka.csv название продукта, ссылку на продукт, ссылка на изображение товара, цену на товар и будет сохранять изображение товаров в папку images
