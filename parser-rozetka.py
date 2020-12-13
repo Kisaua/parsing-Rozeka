@@ -6,7 +6,6 @@ import pandas as pd
 import re
 import os
 import urllib.request
-#import pygsheets
 import argparse
 # Initiate the parser
 parser = argparse.ArgumentParser()
@@ -35,7 +34,7 @@ page = 1
 rozetka_list = []
 link_list = []
 cwd = os.getcwd()
-#print (cwd)
+
 #load the page in chrome browser
 def run_chrome () : 
     chrome_options = Options()
@@ -57,9 +56,7 @@ def parse_page_rozetka(data) :
     for div in soup.findAll("div", {"class" : "goods-tile"}):
         if div.find("div", {"class" : "goods-tile__availability goods-tile__availability_type_available"}) :
             list = {}
-#            if args.title: list["product"] = div.find("a", {"class" : "goods-tile__heading"}).get_text(strip=True)
             if args.title: list["product"] = div.find("span", {"class" : "goods-tile__title"}).get_text(strip=True)
-#            product = product.text.strip()
             if args.price: list["price"] = div.find("span" , {"class" : "goods-tile__price-value"}).get_text(strip=True).replace("\xa0", "")
             if args.imagelink: list["imagelink"] = div.find("img", {"class" : "lazy_img_hover display-none"}).get('src')
             if args.articule: list["articule"] = div.find("div", {"class" : "g-id display-none"}).get_text(strip=True)
@@ -114,7 +111,6 @@ if __name__ == '__main__':
             data = browsepage(browser, url_rozetka)
             rozetka_list = parse_page_rozetka(data) #parse data 
             write_data (rozetka_list, cwd+"/"+file)
-#            print(rozetka_list)
             rozetka_list=[]
             if next_page_rozetka(data): url_rozetka = next_page_rozetka(data) 
             else:  url_rozetka = False 
@@ -131,32 +127,6 @@ if __name__ == '__main__':
                 data = browsepage(browser, url_rozetka)
                 rozetka_list = parse_page_rozetka(data) #parse data 
                 write_data (rozetka_list, cwd+"/"+file)
-#                print(rozetka_list)
                 rozetka_list=[]
                 if next_page_rozetka(data): url_rozetka = next_page_rozetka(data) 
                 else:  url_rozetka = False 
-
-
-
-
-
-#parsing rozetka or load data from file
-#if __name__ == '__main__':
-#    browser = run_chrome()
-#    while rozetka:
-#        rozetka = url_rozetka % page
-#        page = page + 1
-
-#        print ('start parsing page:', rozetka )
-#        data = browsepage(browser, rozetka)
-#        data = browsepage(rozetka) #load url page
-#        rozetka_list = parse_page_rozetka(data) #parse data 
-#        print(rozetka_list)
-#        rozetka = next_page_rozetka(data) #look for the next page
-#        rozetka = False
-#    write_data (rozetka_list, base+rozetka_file) 
-#    browser.quit()
-#    df = pd.DataFrame(rozetka_list)
-#    print(df)
-#    write_gsheet(key, wsheet_rozetka, df)
-#    df.to_csv(base+rozetka_file) #save to file
