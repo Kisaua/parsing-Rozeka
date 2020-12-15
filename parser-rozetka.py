@@ -72,7 +72,7 @@ def parse_page_rozetka(data) :
             if args.image: 
                 image = div.find("img", {"class" : "lazy_img_hover display-none"}).get('src')
                 image_name = cwd+"/images/"+image.split("/")[-1]
-                print (image)
+#                print (image)
                 if not os.path.exists(cwd+"/images/"):
                     os.makedirs(cwd+"/images/")
                 try: urllib.request.urlretrieve(image, image_name)
@@ -93,7 +93,7 @@ def next_page_rozetka (data) :
 #convert list of data and save to file
 def write_data (list, file):
     df = pd.DataFrame(list)
-    print (df)
+#    print (df)
     df.to_csv(file, mode="a", index = False, header = False) #save to file
 
 if __name__ == '__main__':
@@ -112,7 +112,10 @@ if __name__ == '__main__':
             rozetka_list = parse_page_rozetka(data) #parse data 
             write_data (rozetka_list, cwd+"/"+file)
             rozetka_list=[]
-            if next_page_rozetka(data): url_rozetka = next_page_rozetka(data) 
+            page = page +1
+            page_text = "&page=%s"
+            if next_page_rozetka(data): url_rozetka = next_page_rozetka(data).replace(page_text % (page-1), page_text % (page))
+#                print (url_rozetka)
             else:  url_rozetka = False 
         browser.quit()
     elif args.file:
