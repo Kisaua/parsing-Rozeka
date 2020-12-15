@@ -3,7 +3,7 @@
 
 -h, --help show this help message and exit
 
--s SEARCH, --search ищет слово или фразу и сохраняет найденные карточки (на rapberry pi ищет только на латанице)
+-s SEARCH, --search ищет слово или фразу и сохраняет найденные карточки (на rapberry pi ищет только на латинице)
 
 -I, --image сохраняет изображение товара в папку images 
 
